@@ -1,143 +1,42 @@
-#include <iostream>
 
+#include <iostream>
 using namespace std;
 
-struct Node
+void inputArray(int*& a, int& n)
 {
-	int data;
-	Node* next;
-};
+    cin >> n;
 
-struct List
-{
-	Node* pHead, * tail;
-};
+    a = new int(n + 1);
 
-Node* getNode(int x)
-{
-	Node* p = new Node;
-
-	if (p != NULL)
-	{
-		p->data = x;
-		p->next = NULL;
-	}
-
-	return p;
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
 }
 
-void addHead(List& L, int x)
+void findElements(int* a, int n, int& m)
 {
-	Node* p = getNode(x);
+    cin >> m;
 
-	if (L.pHead == NULL)
-		L.pHead = L.tail = p;
-	else
-	{
-		p->next = L.pHead;
-		L.pHead = p;
-	}
-}
+    int j, x;
 
-void addTail(List& L, int x)
-{
-	Node* p = getNode(x);
-
-	if (L.tail == NULL)
-		L.pHead = L.tail = p;
-	else
-	{
-		L.tail->next = p;
-		L.tail = p;
-	}
-}
-
-//void insertAfter(List& L, int x, int y)
-//{
-//	Node* q = getNode(x), * p = getNode(y);
-//
-//	if (q != NULL)
-//	{
-//		p->nextNode = q->nextNode;
-//		q->nextNode = p;
-//		if (L.tail == q)
-//			L.tail = p;
-//	}
-//	else
-//		addHead(L, y);
-//}
-
-void insertAfter(List& L, int x, int y)
-{
-	Node* q = L.pHead;
-
-	while (q != NULL && q->data != x) {
-		q = q->next;
-	}
-
-	Node* p = getNode(y);
-	// q -> gido
-	// q -> p -> gido
-
-	if (q != NULL)
-	{
-		p->next = q->next;
-		q->next = p;
-		if (L.tail == q)
-			L.tail = p;
-	}
-	else
-		addHead(L, y);
-}
-
-
-void outList(List L)
-{
-	Node* p = L.pHead;
-
-	while (p != NULL)
-	{
-		cout << p->data << " ";
-		p = p->next;
-	}
+    for (int i = 0; i < m; i++) {
+        cin >> x;
+        j = 0;
+        a[n] = x;
+        while (a[j] != x) j++;
+        if (j < n) cout << j << endl;
+        else cout << -1 << endl;
+    }
 }
 
 int main()
 {
-	List L;
+    int n, m;
 
-	L.pHead = L.tail = NULL;
+    int* a = NULL;
 
-	int a, x, y;
+    inputArray(a, n);
 
-	while (1)
-	{
-		cin >> a;
+    findElements(a, n, m);
 
-		if (a == 3) break;
-		else
-			if (a == 0)
-			{
-				cin >> x;
-				addHead(L, x);
-			}
-			else
-				if (a == 1)
-				{
-					cin >> x;
-					addTail(L, x);
-				}
-				else
-					if (a == 2)
-					{
-						cin >> x >> y;
-						insertAfter(L, x, y);
-
-					}
-				
-	}
-
-	outList(L);
+    return 0;
 }
-
-
